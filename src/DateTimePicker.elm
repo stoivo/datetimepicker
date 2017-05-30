@@ -877,7 +877,7 @@ inputChangeHandler config stateValue currentDate maybeDate =
                         , event = "inputChangeHandler"
                     }
             in
-                config.onChange (InternalState updatedValue) maybeDate
+                config.onChange (InternalState updatedValue) currentDate
 
         Nothing ->
             let
