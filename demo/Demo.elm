@@ -135,6 +135,7 @@ digitalTimePickerConfig =
     in
         { defaultDateTimeConfig
             | timePickerType = DateTimePicker.Config.Digital
+            , ampm = False
         }
 
 

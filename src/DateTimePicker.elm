@@ -530,15 +530,23 @@ digitalTimePickerDialog pickerType state currentDate =
         ampmList =
             [ "AM", "PM" ]
 
-        timeSelector =
-            List.map3 toRow (hours) (minutes) (ampmList ++ List.repeat 4 "")
+        timeSelector config =
+            List.map3 (toRow config) (hours) (minutes) (ampmList ++ List.repeat 4 "")
 
-        toRow hour min ampm =
-            tr []
-                [ hourCell hour
-                , minuteCell min
-                , amPmCell ampm
-                ]
+        toRow config hour min ampm =
+            case config.ampm of
+                True ->
+                    tr []
+                        [ hourCell hour
+                        , minuteCell min
+                        , amPmCell ampm
+                        ]
+
+                False ->
+                    tr []
+                        [ hourCell hour
+                        , minuteCell min
+                        ]
 
         hourCell hour =
             td
@@ -644,7 +652,7 @@ digitalTimePickerDialog pickerType state currentDate =
                     [ table []
                         [ tbody []
                             (upArrows config
-                                ++ timeSelector
+                                ++ timeSelector config
                                 ++ downArrows config
                             )
                         ]
@@ -1201,8 +1209,17 @@ hourUpHandler config stateValue currentDate =
 hourDownHandler : Config config msg -> StateValue -> Maybe Date -> msg
 hourDownHandler config stateValue currentDate =
     let
+        maxHour =
+            -- should be config.ampm, but if fails
+            case False of
+                True ->
+                    12
+
+                False ->
+                    24
+
         updatedState =
-            if stateValue.hourPickerStart + 6 <= 12 then
+            if stateValue.hourPickerStart + 6 <= maxHour then
                 { stateValue | hourPickerStart = stateValue.hourPickerStart + 6 }
             else
                 stateValue

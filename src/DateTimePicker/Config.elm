@@ -177,10 +177,13 @@ defaultTimeInputFormat =
 
 {-| Configuration for TimePicker
 
- * `timePickerType` is the type of the time picker, either Analog or Digital
+  - `timePickerType` is the type of the time picker, either Analog or Digital
+  - `ampm` will decide if it will be 24 hours as well , either True or False
+
 -}
 type alias TimePickerConfig =
     { timePickerType : TimePickerType
+    , ampm : Bool
     }
 
 
@@ -211,12 +214,16 @@ defaultDatePickerConfig onChange =
 
 
 {-| Default configuration for TimePicker
-  * `onChange` No Default
-  * `dateFormatter` Default: `"%m/%d/%Y"`
-  * `dateTimeFormatter` Default: `"%m/%d/%Y %I:%M %p"`
-  * `autoClose` Default: False
-  * `timeFormatter` Default: `"%I:%M %p"`
-  * `timePickerType` Default: Analog
+
+  - `onChange` No Default
+  - `dateFormatter` Default: `"%m/%d/%Y"`
+  - `dateTimeFormatter` Default: `"%m/%d/%Y %I:%M %p"`
+  - `autoClose` Default: False
+  - `timeFormatter` Default: `"%I:%M %p"`
+  - `timePickerType` Default: Analog
+  - `autoClose` Default: True
+  - `ampm` Default: True
+
 -}
 defaultTimePickerConfig : (State -> Maybe Date -> msg) -> Config TimePickerConfig msg
 defaultTimePickerConfig onChange =
@@ -224,22 +231,25 @@ defaultTimePickerConfig onChange =
     , autoClose = False
     , timePickerType = Analog
     , i18n = defaultTimeI18n
+    , ampm = True
     }
 
 
 {-| Default configuration for DateTimePicker
 
- * `onChange` No Default
- * `dateFormatter` Default: `"%m/%d/%Y"`
- * `dateTimeFormatter` Default: `"%m/%d/%Y %I:%M %p"`
- * `autoClose` Default: False
- * `nameOfDays` see `NameOfDays` for the default values.
- * `firstDayOfWeek` Default: Sunday.
- * `titleFormatter`  Default: `"%B %Y"`
- * `fullDateFormatter` Default:  `"%A, %B %d, %Y"`
- * `timeFormatter` Default: `"%I:%M %p"`
- * `timePickerType` Default:  Analog
- * `allowYearNavigation` Default : True
+  - `onChange` No Default
+  - `dateFormatter` Default: `"%m/%d/%Y"`
+  - `dateTimeFormatter` Default: `"%m/%d/%Y %I:%M %p"`
+  - `autoClose` Default: False
+  - `nameOfDays` see `NameOfDays` for the default values.
+  - `firstDayOfWeek` Default: Sunday.
+  - `titleFormatter` Default: `"%B %Y"`
+  - `fullDateFormatter` Default: `"%A, %B %d, %Y"`
+  - `timeFormatter` Default: `"%I:%M %p"`
+  - `timePickerType` Default: Analog
+  - `allowYearNavigation` Default : True
+  - `ampm` Default : True
+
 -}
 defaultDateTimePickerConfig : (State -> Maybe Date -> msg) -> Config (DatePickerConfig TimePickerConfig) msg
 defaultDateTimePickerConfig onChange =
@@ -250,6 +260,7 @@ defaultDateTimePickerConfig onChange =
     , timePickerType = Analog
     , allowYearNavigation = True
     , i18n = defaultDateTimeI18n
+    , ampm = True
     }
 
 
